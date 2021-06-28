@@ -4,7 +4,7 @@
 //
 //  Created by Colin Smith on 6/26/21.
 //
-
+import CoreLocation
 import UIKit
 
 class SearchViewController: UIViewController {
@@ -14,7 +14,9 @@ class SearchViewController: UIViewController {
     
     var searchWorkItem: DispatchWorkItem?
     var searchQueue = DispatchQueue(label: "SearchQueue", qos: .default)
-
+    
+    var locationManager: CLLocationManager?
+    
     var searchText: String = "" {
         didSet {
             searchQueue.async(execute: searchWorkItem!)
@@ -29,12 +31,22 @@ class SearchViewController: UIViewController {
         photoTableView.delegate = self
         photoTableView.dataSource = self
         
+        locationManager = CLLocationManager()
+        locationManager?.delegate = self
+        locationManager?.requestWhenInUseAuthorization()
+        
     }
     override func viewDidAppear(_ animated: Bool) {
         searchWorkItem = DispatchWorkItem(block: { [weak self] in
             self?.sendSearchTerm(searchText: self?.searchText ?? "")
         })
     }
+    
+    @IBAction func searchButtonPressed(_ sender: UIButton) {
+        locationManager?.startUpdatingLocation()
+        
+    }
+    
     
     fileprivate func sendSearchTerm(searchText: String) {
         if searchText.isEmpty {
@@ -51,7 +63,6 @@ class SearchViewController: UIViewController {
                     self.photoTableView.reloadData()
                 }
             }
-            
         }
     }
 }
@@ -86,4 +97,24 @@ extension SearchViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         self.searchText = searchText
     }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchQueue.async(execute: searchWorkItem!)
+    }
+    
+}
+
+
+extension SearchViewController: CLLocationManagerDelegate {
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        locationManager?.stopUpdatingLocation()
+        guard let location = locations.last else { return }
+        CLGeocoder().reverseGeocodeLocation(location) { placemarks, error in
+            guard let locality = placemarks?.compactMap({$0.locality}).first,
+                  let state = placemarks?.compactMap({$0.administrativeArea}).first else { return }
+            self.flickerSearchBar.text = "\(locality), \(state)"
+        }
+    }
+    
 }

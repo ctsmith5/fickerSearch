@@ -20,7 +20,6 @@
 		AFDC67F72687745400B998B4 /* FlickrSearchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFDC67F62687745400B998B4 /* FlickrSearchTests.swift */; };
 		AFDC68022687745400B998B4 /* FlickrSearchUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFDC68012687745400B998B4 /* FlickrSearchUITests.swift */; };
 		AFDC68102687780F00B998B4 /* FlickerClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFDC680F2687780F00B998B4 /* FlickerClient.swift */; };
-		AFDC68162687842300B998B4 /* PhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFDC68152687842300B998B4 /* PhotoCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,7 +59,6 @@
 		AFDC68012687745400B998B4 /* FlickrSearchUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickrSearchUITests.swift; sourceTree = "<group>"; };
 		AFDC68032687745400B998B4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AFDC680F2687780F00B998B4 /* FlickerClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickerClient.swift; sourceTree = "<group>"; };
-		AFDC68152687842300B998B4 /* PhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -155,7 +153,6 @@
 			isa = PBXGroup;
 			children = (
 				AFDC67E32687744F00B998B4 /* SearchViewController.swift */,
-				AFDC68152687842300B998B4 /* PhotoCollectionViewCell.swift */,
 				AF3E971A2688382000CD5429 /* DetailPhotoViewController.swift */,
 				AF3E971C268A015A00CD5429 /* PhotoTableViewCell.swift */,
 			);
@@ -297,7 +294,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				AFDC67E42687744F00B998B4 /* SearchViewController.swift in Sources */,
-				AFDC68162687842300B998B4 /* PhotoCollectionViewCell.swift in Sources */,
 				AF3E97192687A9C000CD5429 /* PhotoViewModel.swift in Sources */,
 				AFDC68102687780F00B998B4 /* FlickerClient.swift in Sources */,
 				AF3E97162687941700CD5429 /* Models.swift in Sources */,

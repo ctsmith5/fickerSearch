@@ -12,14 +12,11 @@ class SearchViewController: UIViewController {
     @IBOutlet weak var flickerSearchBar: UISearchBar!
     @IBOutlet weak var photoTableView: UITableView!
     
-    var searchWorkItem: DispatchWorkItem?
-    var searchQueue = DispatchQueue(label: "SearchQueue", qos: .default)
-    
     var locationManager: CLLocationManager?
     
     var searchText: String = "" {
         didSet {
-            searchQueue.async(execute: searchWorkItem!)
+            sendSearchTerm(searchText: self.searchText)
         }
     }
     var photos: [FlickerPhoto] = []
@@ -36,11 +33,7 @@ class SearchViewController: UIViewController {
         locationManager?.requestWhenInUseAuthorization()
         
     }
-    override func viewDidAppear(_ animated: Bool) {
-        searchWorkItem = DispatchWorkItem(block: { [weak self] in
-            self?.sendSearchTerm(searchText: self?.searchText ?? "")
-        })
-    }
+
     
     @IBAction func searchButtonPressed(_ sender: UIButton) {
         locationManager?.startUpdatingLocation()
@@ -99,7 +92,7 @@ extension SearchViewController: UISearchBarDelegate {
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        searchQueue.async(execute: searchWorkItem!)
+        sendSearchTerm(searchText: searchText)
     }
     
 }
